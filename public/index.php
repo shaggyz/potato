@@ -6,9 +6,6 @@ $request = Zend\Diactoros\ServerRequestFactory::fromGlobals();
 
 $routes = require __DIR__ . "/../config/routes.php";
 
-$application = new MiniApp\Kernel();
+$application = new MiniApp\Kernel;
+$application->loadRoutes($routes);
 $application->processRequest($request);
-
-// Application routes
-// $router->map('GET', '/', 'MiniApp\Controller\HomeController::index');
-// $router->map('GET', '/restricted', 'MiniApp\Controller\HomeController::restricted');

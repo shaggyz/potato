@@ -9,22 +9,23 @@ use Latte\Engine;
 
 /**
  * Controller dedicated to the landing actions.
- *
- * @author Nicolás Palumbo <n@xinax.net>
  */
 class HomeController
 {
-    /** @var string */
-    private $foo = "bar";
+    /** @var array */
+    private $config;
+
+    /** @var Engine */
+    private $latte;
 
     /**
-     * TODO: Dependency injection for controllers.
-     *
-     * @return void
+     * @param Engine $latte
+     * @param array $config
      */
-    public function __construct(Engine $latte)
+    public function __construct(Engine $latte, array $config)
     {
-        $this->foo = "Testing";
+        $this->latte = $latte;
+        $this->config = $config;
     }
 
     /**
@@ -36,7 +37,7 @@ class HomeController
     {
         $uri = $request->getUri();
 
-        return new HtmlResponse("The current uri is: $uri");
+        return new HtmlResponse("The current uri is: $uri. Foo is: {$this->foo}");
     }
 
     /**
@@ -47,5 +48,25 @@ class HomeController
     public function restricted(ServerRequest $request) : ResponseInterface
     {
         return new HtmlResponse("Restricted Area");
+    }
+
+    /**
+     * @param ServerRequest $request
+     *
+     * @return  HtmlResponse
+     */
+    public function template(ServerRequest $request) : ResponseInterface
+    {
+        $template = $this->config['templates'] . "index.html";
+
+        $parameters = [
+            'key' => 'value',
+            'foo' => [1, 2, 3, 4, 5, 6, 7],
+            'bool' => true
+        ];
+
+        return new HtmlResponse(
+            $this->latte->renderToString($template, $parameters)
+        );
     }
 }

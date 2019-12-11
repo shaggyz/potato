@@ -4,8 +4,11 @@ require __DIR__ . "/../vendor/autoload.php";
 
 $request = Zend\Diactoros\ServerRequestFactory::fromGlobals();
 
+$config = require __DIR__ . "/../config/app.dist.php";
 $routes = require __DIR__ . "/../config/routes.php";
+$container = require __DIR__ . "/../config/services.php";
 
-$application = new MiniApp\Kernel;
-$application->loadRoutes($routes);
-$application->processRequest($request);
+$app = new MiniApp\Kernel($container, $config);
+
+$app->loadRoutes($routes);
+$app->processRequest($request);

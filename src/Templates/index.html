@@ -5,6 +5,12 @@
     <title></title>
 </head>
 <body>
-    <h1>Some html</h1>
+    <h1>Some html title</h1>
+    <div>
+		<!-- loops and conditionals with latte -->
+		<ul n:if="$foo">
+			<li n:foreach="$foo as $item">{$item|capitalize}</li>
+		</ul>
+    </div>
 </body>
 </html>

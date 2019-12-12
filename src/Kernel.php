@@ -5,10 +5,13 @@ namespace MiniApp;
 use League\Route\Router;
 use Zend\Diactoros\ServerRequest;
 use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
-use League\Container\Container;
 use League\Route\Strategy\ApplicationStrategy;
 use Psr\Container\ContainerInterface;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
+/**
+ * Application Kernel: A sophisticated name for a spaghetti meatball.
+ */
 class Kernel
 {
     /** @var Router */
@@ -33,6 +36,10 @@ class Kernel
 
         $this->router = $router;
         $this->config = $config;
+
+        if (count($this->config['database'])) {
+            $this->initializeDatabase();
+        }
     }
 
     /**
@@ -61,5 +68,23 @@ class Kernel
     {
         $response = $this->router->dispatch($request);
         (new SapiEmitter)->emit($response);
+    }
+
+    /**
+     * Initializes Illuminate/Database and Eloquent ORM
+     */
+    public function initializeDatabase() : void
+    {
+        $capsule = new Capsule;
+
+        foreach ($this->config['database'] as $connection) {
+            $capsule->addConnection($connection);
+        }
+
+        // Make this Capsule instance available globally via static methods
+        $capsule->setAsGlobal();
+
+        // Setup the Eloquent ORM
+        $capsule->bootEloquent();
     }
 }

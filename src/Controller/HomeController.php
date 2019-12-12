@@ -2,9 +2,11 @@
 
 namespace MiniApp\Controller;
 
+use MiniApp\Model\Book;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\ServerRequest;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Latte\Engine;
 
 /**
@@ -37,7 +39,7 @@ class HomeController
     {
         $uri = $request->getUri();
 
-        return new HtmlResponse("The current uri is: $uri. Foo is: {$this->foo}");
+        return new HtmlResponse("The current uri is: $uri.");
     }
 
     /**
@@ -57,7 +59,7 @@ class HomeController
      */
     public function template(ServerRequest $request) : ResponseInterface
     {
-        $template = $this->config['templates'] . "index.html";
+        $template = $this->config['templates'] . "index.latte";
 
         $parameters = [
             'key' => 'value',
@@ -68,5 +70,48 @@ class HomeController
         return new HtmlResponse(
             $this->latte->renderToString($template, $parameters)
         );
+    }
+
+    /**
+     * @param ServerRequest $request
+     *
+     * @return HtmlResponse
+     */
+    public function database(ServerRequest $request) : ResponseInterface
+    {
+        // Using Illuminate/Database
+        $books = Capsule::table('books')
+            ->where('id', '>', 0)
+            ->get();
+
+        echo "Found {$books->count()} books with the query builder: <br>";
+
+        // foreach ($books as $book) {
+        //    echo '<pre>';
+        //    print_r($book);
+        //    echo '</pre>';
+        // }
+
+        // Using the schema builder (for migrations)
+
+        // Capsule::schema()->create('users', function ($table) {
+        //    $table->increments('id');
+        //    $table->string('email')->unique();
+        //    $table->timestamps();
+        // });
+
+        // Using Eloquent ORM
+        $books = Book::all();
+
+        echo "Found {$books->count()} books with eloquent ORM: <br>";
+
+        foreach ($books as $book) {
+            echo "Title: " . $book->title . "<br>";
+            echo "Year: " . $book->year . "<br>";
+            echo "Active: " . ($book->active ? 'Yes' : 'No');
+            echo "<hr>";
+        }
+
+        return new HtmlResponse("");
     }
 }

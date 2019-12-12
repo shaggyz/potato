@@ -3,7 +3,7 @@
 $container = new League\Container\Container;
 
 //
-// In this file you can configure your service
+// In this file you can configure your services and bugs.
 //
 
 // Dependencies

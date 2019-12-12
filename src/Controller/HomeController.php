@@ -5,6 +5,7 @@ namespace MiniApp\Controller;
 use MiniApp\Model\Book;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\ServerRequest;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Latte\Engine;
@@ -113,5 +114,18 @@ class HomeController
         }
 
         return new HtmlResponse("");
+    }
+
+    /**
+     * @param ServerRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function json(ServerRequest $request) : ResponseInterface
+    {
+        return new JsonResponse([
+            'number' => 1234,
+            'string' => 'A string!',
+        ]);
     }
 }

@@ -1,6 +1,6 @@
 # 🥔 Potato framework
 
-Simple web application without implementing any web framework =).
+Potato is a non-convoluted web framework for PHP.
 
 ## Composer packages used in this project
 

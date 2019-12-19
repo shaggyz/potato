@@ -1,4 +1,4 @@
-# Mini php application
+# 🥔 Potato framework
 
 Simple web application without implementing any web framework =).
 

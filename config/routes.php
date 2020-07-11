@@ -7,4 +7,5 @@ return [
     ['GET',  '/template',    'HomeController::template'],
     ['GET',  '/database',    'HomeController::database'],
     ['GET',  '/json',        'HomeController::json'],
+    ['GET',  '/service',     'HomeController::service'],
 ];

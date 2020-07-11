@@ -9,6 +9,7 @@ use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\ServerRequest;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Latte\Engine;
+use MiniApp\Service\CustomService;
 
 /**
  * Controller dedicated to the landing actions.
@@ -127,5 +128,11 @@ class HomeController
             'number' => 1234,
             'string' => 'A string!',
         ]);
+    }
+
+    public function service(ServerRequest $request) : ResponseInterface
+    {
+        $service = new CustomService();
+        return new HtmlResponse($service->doSomethingElse('A string', 3));
     }
 }

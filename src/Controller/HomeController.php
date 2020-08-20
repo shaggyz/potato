@@ -41,7 +41,7 @@ class HomeController
     {
         $uri = $request->getUri();
 
-        return new HtmlResponse("The current uri is: $uri.");
+        return new HtmlResponse("Index: The current uri is: $uri.");
     }
 
     /**

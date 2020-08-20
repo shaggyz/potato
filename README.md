@@ -12,3 +12,11 @@ Potato is a non-convoluted web framework for PHP.
 - League router and router examples: https://route.thephpleague.com/4.x/dependency-injection/#using-a-container
 - Eloquent ORM (no better option ATM): https://github.com/laravel/framework/tree/6.x/src/Illuminate/Database
 - Eloquent user docs: https://laravel.com/docs/6.x/eloquent
+
+## Useful links for implementation details
+
+- Composer create project: https://getcomposer.org/doc/03-cli.md#create-project
+- Composer scripts events: https://getcomposer.org/doc/articles/scripts.md
+
+## TODO
+

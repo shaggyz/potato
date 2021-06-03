@@ -20,3 +20,4 @@ Potato is a non-convoluted web framework for PHP.
 
 ## TODO
 
+- [ ] Port this to php8

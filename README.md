@@ -18,6 +18,13 @@ Potato is an unconvoluted web framework for PHP.
 - Composer create project: https://getcomposer.org/doc/03-cli.md#create-project
 - Composer scripts events: https://getcomposer.org/doc/articles/scripts.md
 
-## TODO
+## Development deployment
 
-- [ ] Port this to php8
+Requires:
+
+- docker
+- GNU Make
+
+> TBD, for now `make help`
+
+

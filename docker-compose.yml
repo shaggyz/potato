@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+    php:
+        container_name: potato-php
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8888"
+        volumes:
+            - "./src:/usr/src/app/src"
+            - "./vendor:/usr/src/app/vendor"
+            - "./public:/usr/src/app/public"
+            - "./config:/usr/src/app/config"
+
